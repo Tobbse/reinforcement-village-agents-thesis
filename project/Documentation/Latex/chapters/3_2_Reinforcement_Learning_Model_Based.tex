@@ -1,0 +1,114 @@
+\section{Modellfreie und modellbasierte Verfahren}\label{reinforcement_learning_basics}
+Konkret werden beim Reinforcement Learning Markov-Entscheidungsprobleme gelöst. Es gibt also, wie in Kapitel \ref{markov_decision_problems} definiert, einen Agenten mit einer Menge von Zuständen, einer Menge von Aktionen und einer Policy, die optimiert werden soll, indem Belohnungen von Aktionen in Abhängigkeit von Beboachtungen bzw. \Fachbegriff{Observations} in Betracht gezogen werden. 
+
+Man unterscheidet zwischen \Fachbegriff{modellbasierten} und \Fachbegriff{modellfreien} Ansätzen (\Fachbegriff{model-based} und \Fachbegriff{model-free}) \cite{berkely_modelfree_modelbased_rl}. Dabei geht es nicht um die Verwendung eines Modells im Sinne von einer Belegung/Gewichtung der Neuronen eines neuronalen Netzes. Dieser Begriff wird häufig beim überwachten Lernen verwendet, beschreibt aber nicht die selbe Sache.
+
+Beim modellbasierten Lernen verfügt der Agent über Informationen zu seinen möglichen Zuständen und Aktionen. Ihm sind sowohl alle möglichen Zuständsübergänge als auch die nötigen Aktionen bekannt, die diese auslösen. Er verfügt also über ein Modell, das seine Umgebung repräsentiert. Dies gibt ihm die Möglichkeit, vorauszuplanen und zukünftige Belohnungen direkt zu berechnen.
+
+Man spricht vom modellfreien Lernen, wenn ein Agent lediglich aus gesammelten Erfahrungen Rückschlüsse über seine Zustände und Aktionen treffen kann. Für das Treffen von Entscheidungen verlassen sich derartige Verfahren auf vergangene Beispiele aus ihrer Umgebung, ohne direkte Vorhersagen über den nächsten Zustand zu treffen. Der Agent verwendet also eine Art \sogenannt{Trial-And-Error}-Verfahren für die Berechnung einer möglichst guten Policy.
+
+
+
+\subsection{Modellbasierte Verfahren}
+Im Folgenden werden einige relevante modellbasierte Verfahren konkret vorgestellt. Als erstes werden dafür weitere nötige Grundlagen geschaffen, indem zugrunde liegende Sachverhalte wie die \Fachbegriff{Bellman}-Gleichung erläutert werden.
+
+
+\subsubsection{Grundlagen modellbasierter Verfahren}
+Das im Kapitel \ref{markov_decision_problems} vorgestellte Beispiel eignet sich gut für modellbasierte Verfahren. Der Agent kennt das \ac{markov_problem}-Modell der Welt mit Zustandsübergängen, Aktionen und Wahrscheinlichkeitsverteilungen.
+
+Zunächst wird eine sogenannte \Fachbegriff{Value Function} aufgestellt, die beschreibt, wie gut ein Zustand für einen Agenten ist. Sie entspricht der erwarteten Belohnung ausgehend von einem Startzustand. Die Funktion hängt von der Policy $\pi$ des Agenten ab \cite{alzantot} \cite{intro_to_ml_book}.
+$$    V^{\pi}(s)  =   \mathbb{E} \; [  \:  \sum_{k=0}^{\infty} {\gamma^k * r_{t+k}} ]   \;\;\;   \forall{s} 	\in{ \mathbb{S} }     $$
+
+Das Symbol $\mathbb{E}$ steht dabei für einen Erwartungswert. Die Value Function für einen bestimmten Zustand und eine bestimmte Policy berechnet also für alle Zustände $s$ aus $\mathbb{S}$ die erwartete Gesamtbelohnung, welche sich aus den einzelnen Belohnungen der einzelnen Zustände bzw. Aktionen auf dem Weg bis zum Zielzustand befinden.
+
+Es existiert eine Optimale Value Function $V^*$, die von allen Funktionen den höchsten Reward liefert.
+$$   V^*(s)   =   \mathmax_{\pi} \; V^{\pi}(s)    \;\;\;   \forall{s} 	\in{ \mathbb{S} }     $$
+
+
+Weiterhin existiert eine optimale Policy ${\pi}^*$, welche in der optimale Value Function resultiert.
+$$   {\pi}^*   =  \argmax_{\pi}  \; V^{\pi}(s)    \;\;\;   \forall{s} 	\in{ \mathbb{S} }     $$
+
+
+
+Weiterhin wichtig für sowohl modellbasierte als auch modellfreie Verfahren sind sogenannte \Fachbegriff{Q-Functions}. Diese nutzen einen Zustand $s$ und eine Aktion $a$. Dabei wird ein Mapping von Zuständen zu möglichen Aktionen verwendet. Eine Q-Function gibt einen reellen Wert zurück, der die zu erwartende Belohnung widerspiegelt, wenn im Zustand $s$ die Aktion $a$ ausgeführt wird.
+$$  \mathcal{Q}  \;\,  :  \;\,  \mathbb{S} \, \times   \, \mathbb{A}  \;  \rightarrow  \;  \mathbb{R}  $$
+
+Die optimale Q-Funktion lautet $Q^*(s,a)$. Ein Agent startet dann in Zustand $s$ und führt bis zum Terminalzustand nur optimale Aktionen aus. Sie gibt Angaben darüber, wie gut ein Zustand für einen Agenten ist, wie die optimale Value Function $V^*$. Da $V^*$ die maximal zu erwartende Belohnung beim Start in Zustand $s$ ist, so wäre das Q-Äquivalent das Maximum von $Q^*(s,a)$ über alle möglichen Aktionen. Also gilt:
+
+$$   V^*(s)   \;\; = \;\;   \mathmax_a Q^* (s,a)  \;\;\;   \forall{s} 	\in{ \mathbb{S} }   $$
+
+$$   {\pi}^*   \;\; = \;\;   \argmax_a Q^* (s,a)  \;\;\;   \forall{s} 	\in{ \mathbb{S} }   $$
+
+
+
+\paragraph{Bellman-Gleichung}
+Die beiden modellbehafteten Verfahren \Fachbegriff{Value Iteration und Policy Iteration} und weitere Ansätze nutzen die \Fachbegriff{Bellman-Gleichung} \cite{bellman}. Die Gleichung stellt ein Optimierungsverfahren dar.
+Die Q-Funktion $Q^*(s,a)$ entspricht laut Bellman der Summe der unmittelbaren Belohnungen der Aktion $a$ aus Zustand $s$ heraus und der mit dem Discountfaktor verrechneten zukünftigen Belohnung nach der Zustandsänderung in einen neuen Zustand $s'$ \cite{alzantot} \cite{intro_to_ml_book} \cite{unity_blog_reinforcement_q} \cite{alzantot}.
+
+$$   Q^* (s,a) = R(s,a) + \gamma  \:  \mathbb{E}_{s'}   \:   [V^*(s')]    $$
+
+$$   Q^* (s,a) = R(s,a) + \gamma  \:  \sum_{s' \in{\mathbb{S}} } p'(s|s,a) \; V^*(s')    $$
+
+$$   V^*(s)  \: = \:  \mathmax_a  \;  \left[   R(s,a) + \gamma  \:  \sum_{s' \in{\mathbb{S}} } p'(s|s,a) \; V^*(s')   \, \right] $$
+
+
+
+
+
+\subsubsection{Value Iteration}
+Value Iteration nutzt die Bellman-Gleichung zur iterativen Berechnung der optimalen Value Function $V(s)$. Es garantiert immer nach $n$ Schritten eine Konvergenz zur optimalen Value Function. Der Ablauf von Value Iteration wird anhand des folgenden Pseudocodes verdeutlicht \cite{intro_to_ml_book}:
+
+% Explanation: https://www.quora.com/What-is-an-intuitive-explanation-of-value-iteration-in-reinforcement-learning-RL
+
+\smallskip
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{Optimal Value Function}
+\smallskip
+Initialize $V(s)$ to arbitrary values\;
+\While{$V(s)$ has not converged}{
+    \For{all $s \in{ \mathbb{S} } $}{
+        \For{all $a \in{ \mathbb{A} } $}{
+            $ Q(s,a) \leftarrow  \mathbb{E}[r|s,a] + \gamma \, \sum_{s' \in{\mathbb{S}} \: } p'(s|s,a) \; V^*(s')  $
+        }
+        $ V(s)   \leftarrow   \mathmax_a Q(s,a)   $
+    }
+}
+\caption{Value Iteration}
+\end{algorithm}
+\smallskip
+\smallskip
+
+Bei diesem Vorgehen wird eine relativ willkürliche Endbedingung festgelegt. Es sollte ein sinnvoller Wert für die erreichte Konvergenz der Value Function als Abbruchbedingung gefunden werden.
+
+Die Funktion beinhaltet einen rekursiven Abstieg. $V(s)$ wird so lange mit dem jeweils nächsten Zustand aufgerufen, bis das Ende erreicht wird, wobei für jeden Zwischenzustand alle möglichen Aktionen ausgewertet und jeweils die mit der maximalen Belohnung $R$ gewählt wird.
+Dies wird für jeden möglichen Startzustand aus $\mathbb{S}$ und jede mögliche Aktion wiederholt.
+
+
+\subsubsection{Policy Iteration}
+Das Vorgehen bei \Fachbegriff{Policy Iteration} verfolgt den Ansatz, statt der optimalen Value Function die optimale Policy zu finden. Bei jedem Schritt wird hier also die Policy angepasst, bis diese konvergiert. Ebenso wie bei Value Iteration wird hier eine Konvergenz für ein optimales Ergebnis nach $n$ Schritten garantiert.
+Im folgenden Pseudocode wird die Funktionsweise der Policy Iteration gezeigt \cite{intro_to_ml_book}:
+
+\smallskip
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{Optimal Policy}
+\smallskip
+Initialize a policy $\pi$\ arbitrarily\;
+\While{$\pi$ != ${\pi}'$}{
+    $ \pi \leftarrow {\pi}' $   \;
+    Compute Value Functions for $\pi$ by solving linear equations\;
+        $ \;\;\;\;\;\;   V^{\pi}(s) = \mathbb{E} [r|s, \pi(s)]  +  \gamma \sum_{s'in \mathbb{S}}  \;  P(s'|s,\pi(s)) V^{\pi}(s')   $   \;
+    Improve the policy at each state\;
+        $ \;\;\;\;\;\;    {\pi}'(s)  \leftarrow  \argmax_a \left(  \mathbb{E}[r|s,a]   +  \gamma \, \sum_{s' \in{\mathbb{S}} \: } P(s'|s,a) \; V^{\pi}(s')  \right)  $  \;
+}
+\caption{Policy Iteration}
+\end{algorithm}
+\smallskip
+\smallskip
+
+Das Verfahren läuft so lange, wie die jeweils neu berechnete Policy eine Änderung erfährt. Sobald ${\pi}'$ gleich $\pi$ gilt, terminiert der Algorithmus.
+In jedem Schritt werden zunächst die Value Functions für die aktuelle Policy $\pi$ berechnet. Diese bestehen jeweils aus dem erwarteten Reward, der sich aus dem aktuellen State mit der aktuellen Policy ergibt sowie der mit $\gamma$ verrechneten Summe aller nächsten Zustände $s'$ je nach der durch die Policy bestimmten Wahrscheinlichkeit. Dabei gibt es erneut einen rekursiven Abstieg durch das Aufrufen von $V^{\pi}(s')$ mit allen weiteren Zuständen $s'$ bis hin zum Erreichen des Endzustands.
+
+Nach der Berechnung aller Value Functions für die aktuelle Policy $\pi$ wird die neue Policy ${\pi}'$ berechnet. Für jeden möglichen Zustand $s$ werden mittels der berechneten Value Functions alle möglichen Wege zum Ziel berechnet und jeweils der mit der höchsten Belohnung gewählt.
+

@@ -1,0 +1,106 @@
+% Hint: "include" did not work for me using:
+% This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian)
+% Replaced "include" with "input" to make it work.
+
+\input{base/header}
+
+\begin{document}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% ! TITLE STYLES ! %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter numbering depth. This does not change the structure of the chapter listing!
+\setcounter{secnumdepth}{3} 
+
+\titleformat{\section}
+{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}[runin]
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titleformat{\subparagraph}[runin]
+{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% ! TODOS ! %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \listoftodos
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% ! START ! %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{base/Titelseite}
+\pagenumbering{roman}
+\include{chapters/0_abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% ! LISTS ! %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\clearpage
+\pagenumbering{Roman}
+\listoffigures
+%\include{listings/Akronyme}
+\lstlistoflistings
+\cleardoublepage
+\newpage
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% ! ACRONYMS ! %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% For some reason if I don't put this in the acronym environment, I cannot define those acryonyms in a separate file.
+\acrodef{npc}[NPC]{\Fachbegriff{Nicht-Spieler-Charakter}}
+\acrodefplural{npc}[NPCs]{\Fachbegriff{Nicht-Spieler-Charaktere}}
+\acrodef{ai}[AI]{\Fachbegriff{Artificial Intelligence}}
+\acrodefplural{ai}[AIs]{\Fachbegriff{Artificial Intelligences}}
+\acrodef{reinforcement_learning}[RiL]{\Fachbegriff{Reinforcement Learning}}
+\acrodef{ki}[KI]{\Fachbegriff{Künstliche Intelligenz}}
+\acrodefplural{ki}[KIs]{\Fachbegriff{Künstliche Intelligenzen}}
+\acrodef{gan}[GAN]{\Fachbegriff{Generative Adversarial Network}}
+\acrodefplural{gan}[GANs]{\Fachbegriff{Generative Adversarial Networks}}
+\acrodef{goap}[GOAP]{\Fachbegriff{Goal Oriented Action Planning}}
+\acrodef{gdc}[GDC]{\Fachbegriff{Game Developers Conference}}
+\acrodef{markov_problem}[MDP]{\Fachbegriff{Markov Decision Problem}}
+\acrodefplural{markov_problem}[MDPs]{\Fachbegriff{Markov Decision Problems}}
+\acrodef{pomdp}[POMDP]{\Fachbegriff{Partially Observable Markov Decision Process}}
+\acrodefplural{pomdp}[POMDPS]{\Fachbegriff{Partially Observable Markov Decision Processes}}
+\acrodef{ppo}[PPO]{\Fachbegriff{Proximal Policy Optimization}}
+\acrodef{trpo}[TRPO]{\Fachbegriff{Trust Region Policy Optimization}}
+\acrodef{sac}[SAC]{\Fachbegriff{Soft Actor Critic}}
+\acrodef{mvc}[MVC]{\Fachbegriff{Model-View-Controller}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% ! CHAPTERS ! %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+\include{chapters/1_Einleitung}
+\include{chapters/2_Intelligente_Agenten}
+\include{chapters/3_1_Reinforcement_Basics}
+\include{chapters/3_2_Reinforcement_Learning_Model_Based}
+\include{chapters/3_3_Reinforcement_Learning_Model_Free}
+\include{chapters/4_ml_games_beispiel}
+\include{chapters/5_Unity_Machine-Learning}
+\include{chapters/6_Dorfsimulation}
+\include{chapters/7_1_Village_Training}
+\include{chapters/7_2_Village_Training_Results}
+\include{chapters/8_1_Weitere_Ansaetze}
+\include{chapters/8_2_Vergleich_der_Ansaetze}
+\include{chapters/9_Fazit}
+\include{chapters/Anhang_a}
+
+\include{listings/Literaturverzeichnis}
+
+\newpage
+\include{base/footer}
+
+\end{document}

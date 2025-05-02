@@ -1,0 +1,180 @@
+\subsection{Modellfreie Verfahren}
+In diesem Abschnitt werden modellfreie Verfahren als Gegensatz zu modellbasierten Verfahren behandelt. Es werden einige der konkrete Beispiele genannt. Dabei sollen die jeweils erfolgreichsten Verfahren hinsichtlich ihrer Funktionsweise und mathematischen Abläufen betrachtet werden. Ein besonderer Fokus wird dabei auf Gradientenverfahren gesetzt.
+Im Folgenden werden konkrete modellfreie Verfahren vorgestellt.
+
+
+
+\subsubsection{Q-Learning}\label{q-learning}
+Value Iteration und Policy Iteration garantieren stets ein Ergebnis mit einer optimalen Lösung für ein Problem. Dies ist nur möglich, weil es sich um modellbehaftete Vorgehen handelt, bei denen alle Zustandsübergänge und deren Effekte bekannt sind.
+
+Beim \Fachbegriff{Q-Learning} ist dies nicht der Fall. Q-Learning gehört zu der Kategorie des \Fachbegriff{Temporal Difference Learning}. Beim Temporal Difference Learning passt der Agent nach jeder ausgeführten Aktion seine Policy an, indem die Erwartungen für jede mögliche Aktion für den aktuellen Zustand des Agenten geschätzt werden. Der Unterschied zu Policy Iteration ist, dass es sich um ein modellfreies Verfahren handelt. Dabei werden beim Lernvorgang keine vorausschauenden Aktionen getätigt - der Agent lernt lediglich aus seinen eigenen Erfahrungen. Anstelle der mathematischen Erkundung aller möglichen Wege bis zum Zielzustand werden also viele Samples aus der Erfahrung des Agenten gemacht, um statistisch festzuhalten, welche Aktion in welchem Zustand die sinnvollste ist.
+
+\subsubsection{Q-Tables}
+Beim Q-Learning werden Tupel aus Zuständen, Aktionen und Belohnungen gebildet. Diese Tupel füllen dann eine Lookup-Table aus Wertepaaren. Jede Kombination aus für den Agenten nötigen Beobachtungen $n$ ergeben dabei einen neuen State. Die gefüllte Tabelle enthällt pro Zustand Werte für jede mögliche Aktion, die Auskunft darüber geben, wie gut die Aktion mit diesem Zustand ist. Typischerweise wird diese \Fachbegriff{Q-Table} mit Zufallswerten gefüllt. Unter Anwendung des Temporal Difference Learnings werden die optimalen Zustand-Aktion-Tupel approximiert.
+Wenn in einem Zustand $s$ eine Aktion $a$ mit einer registrierten Belohnung $r(s,a)$ ausgeführt wird, so funktioniert die Berechnung des neuen Tupels $Q(s,a)$ wie folgt:
+
+$$ Q(s,a) = (1 - \alpha) \: Q(s,a) + \alpha \; Q_{obs} (s,a) $$
+$$ Q_{obs} (s,a) = r(s,a) + \gamma \: \mathmax_{a'} \: Q(s',a')  $$
+
+Bei $\alpha$ handelt es sich um die Lernrate. Der neue Wert von $Q(s,a)$ ergibt sich aus der Addition des alten Werts mit dem neuen observierten Wert $Q_{obs}$, jeweils verrechnet mit $\alpha$. $Q_{obs}$ wird aus dem registrierten Belohnungswert und dem maximalen Q-Wert für den neuen Zustand $s'$ errechnet.
+
+Abhängig von der Anzahl der relevanten Variablen und damit den Zuständen ergeben sich daraus unter Umständen sehr große Lookup-Tabellen. Man stelle sich ein Spielfeld von vier mal vier Feldern vor. Jedes Feld kann entweder ein Hindernis, ein Ziel oder nichts beinhalten. Jedes der ingesamt 16 Felder kann also drei verschiedene Feldzustände annehmen. Selbst aus diesem minimalistischen Szenario ergeben sich bereits $n_s = 3^{16} \approx 43 $ Millionen maximal mögliche Zustände. Diese Zahl müsste zusätzlich noch mit der Anzahl der Aktionen multipliziert werden, um die Anzahl der Q-Werte zu erhalten. Beim Q-Learning muss der Agent in der Lage sein, über möglichst alle möglichen Zustände zu abstrahieren, indem er aus seinen gesammelten Erfahrungen lernen kann, um die Q-Tabelle sinnvoll zu füllen. Das setzt auch voraus, dass genügend Erfahrungen gesammelt werden. Ab einer zu hohen Menge von Zuständen ist dies nicht mehr garantiert. Bei der Definition der Zustände und ihrer Granularität und bei der Entscheidung, was überhaupt als ein Zustand bewertet wird, sollte dies berücksichtigt werden.
+% 2 felder mit je 3 zuständen ist schon 3^2:
+% AA  AB  AC
+% BA  BB  BC
+% CA  CB  CC
+
+
+\paragraph{Q-Learning mit neuronalen Netzen}
+Aufgrund der schlechten Skalierbarkeit von Q-Tables muss ein alternativer Weg für die Beschreibung der Zustände gefunden werden. Neuronale Netze können dabei als Approximator dienen, um mit einer hohen Anzahl von Zuständen zu arbeiten. Dabei kann ein Vektor mit einem \Fachbegriff{One-Hot-Encoding} als Input für das neuronale Netz verwendet werden. Die Größe des Vektor hängt dabei von der Anzahl der für die Definition der Zustände relevanten Variablen ab. Jede Variable im Vektor wird entweder mit einer $0$ oder einer $1$ markiert, um die Belegung der Variablen zu definieren. Beim oben genannten Beispiel ergibt sich dann eine Vektorlänge von $n_{vec} = 16*3 = 48 $. Der Output des neuronalen Netzes liefert dann jeweils einen Wert pro ausführbarer Aktion. Der Lerneffekt ergibt sich dann durch die Anpassung der Gewichte des neuronalen Netzes. Statt der Aktualisierung der Q-Table wird dann eine Loss-Funktion sowie Verfahren wie \Fachbegriff{Backpropagation} \cite{backpropagation} angewendet.
+
+
+
+
+\subsubsection{Policy Gradient}
+Eine wichtige Oberklasse von Methoden für die Anwendung von Reinforcement Learning basiert auf \Fachbegriff{Policy Gradient}-Algorithmen. Dabei wird ein Gradientenaufstieg verwendet. Allgemein werden Gradientenverfahren in der Numerik genutzt, um Optimierungsprobleme zu lösen. Hier handelt es sich um ein Optimierungsproblem bezüglich der erwarteten Belohnung einer Policy. Gradientenbasierte Verfahren werden in \ac{pomdp}-Umgebungen verwendet.
+
+Alle bisher vorgstellten Algorithmen basieren auf \Fachbegriff{Action-Value}-Methoden (Value Functions) \cite{reinforcement_introduction_book}. Die Policies in diesen Verfahren lernen direkt die Belohnungswerte von Aktionen und beinhalten Schätzungen dieser Belohnungen basierend auf der Aktion und dem Zustand eines Agenten. Stattdessen werden nun parametrisierte Policies verwendet. Um die Parameter einer Policy zu erlernen, können hier Value Functions verwendet werden, für die Auswahl von Aktionen sind diese allerdings nicht notwendig.
+
+
+\paragraph{Grundlagen}
+Es wird davon ausgegangen, dass eine Policy parametrisiert ist. Die Menge dieser Parameter, die die Beschaffenheit der Policy ausmachen, heißt $\theta$. Das Ziel von Reinforcement Learning ist stets die Anpassung dieser Parameter der Policy, sodass die erwartete Gesamtbelohnung $J$ einer Policy $\pi$ maximal ist. Man spricht auch von \Fachbegriff{Return of Policy}. Die Parameter dieser Policy sollen mithilfe eines Gradientenverfahren gelernt werden, sodass die gesamte zu erwartenden Belohnung maximiert wird \cite{reinforcement_introduction_book} \cite{tds_policygradient}. Bei den Parametern handelt es sich üblicherweise um die Gewichtungen der einzelnen Neuronen in einem neuronalen Netz.
+
+$$   \theta^* = \argmax_{\theta} J(\theta)   $$
+
+Dies gilt universell für alle Methoden des Reinforcement Learnings. Die Parameter $\theta$ könnten sich beispielsweise auch auf eine Value Function oder auf Q-Functions beziehen, die optimiert werden sollen. Im Folgenden wird der Fokus auf das Policy Gradient-Verfahren gelegt.
+
+
+
+
+Die dem Verfahren zugrunde liegenden Markov-Enscheidungsprobleme sind stets von stochastischer Natur (siehe Kapitel \ref{markov_decision_problems}). Es ist nicht exakt vorhersehbar, in welchem Zustand der Agent sich im nächsten Schritt befinden wird. Es ergeben sich Wahrscheinlichkeiten für die Übergänge von Zuständen:
+
+$$ p(s_{t+1}|s_t,a_t) $$
+
+Durch die wiederholte Ausführung von Aktionen und resultierenden Zustandsübergängen folgt schließlich das Erreichen eines Endzustandes. Jeder Weg vom Startzustand $s_0$ zum Endzustand $s_n$, den der Agent beschritten hat, wird als \Fachbegriff{Trajectory} $\tau$ beschrieben und beinhaltet die einzelnen Zustände, Aktionen und Zustandsübergänge. Ein Trajectory $\tau$ hat einen Belohnungswert $R$, oder \Fachbegriff{Return of Trajectory}, der sich aus der Summe der jeweiligen Belohnungen $r$ für die einzelnen Aktionen von $\tau$ ergibt:
+
+$$   R(\tau)   =   \sum_{i=0}^N r (s_i,a_i)   $$
+
+$R$ hängt weiterhin vom bereits definierten Discount-Faktor $\gamma$ ab. Im Folgenden wird dieser Faktor der Einfachheit halber ignoriert.
+
+Weil es sich um eine stochastische Umgebung handelt, sind Trajectories nicht unbedingt vorher festgelegt. Aus diesem Grund ist je nach Problem unter Umständen eine unendlich hohe Anzahl von Trajectories möglich. $\tau$ wird daher zu einer zufälligen Variablen.
+
+Die Gesamtbelohnung $J(\theta)$ in Abhängigkeit der Parametrisierung von $\pi$ ergibt sich aus der Summe der gewichteten Einzelbelohnungen $R$ von $\tau$. Sie beschreibt, wie gut eine Policy ist. Für die Gewichtung wird jede registrierte Belohnung mit dem Erwartungswert für die Aktion $a_i$ multipliziert. Der Erwartungswert ist die Wahrscheinlichkeiten $p(\tau|\theta)$ für das Vorkommen von $\tau$ in Abhängigkeit von $\theta$. Da $\tau$ eine Zufallsvariable darstellt, wird ein Integral gebildet. $J$ hängt also von den jeweiligen Belohnungswerten $R$ aller $\tau$ ab:
+
+$$    J(\theta) = \int p(\tau|\theta) \: R(\tau) \; d\tau   $$
+
+Die Wahrscheinlichkeit $p(\tau)$ für die Wahl eines Trajectory $\tau$ mit einer Parametrisierung $\theta$ ist die Wahrscheinlichkeit für den Startzustand $s0$ multipliziert mit dem Produkt der einzelnen Wahrscheinlichkeiten aller Zustandsübergänge in $\tau$. Wegen der geltenden Markov-Eigenschaft (siehe Abschnitt \ref{markov_decision_problems}) in diesem stochastischen Prozess ist diese Formulierung gültig:
+
+$$  p(\tau|\theta)   =   p(s_0) * \prod_{i=0}^N   p(s_{i+1}|s_i,a_i)  \:  \pi(a_i|s_i;\theta)      $$
+
+
+
+
+
+\paragraph{Berechnung des Gradienten}
+Ein Gradient zeigt bei einem vorhandenen Gefälle stets in die Richtung des größten Anstiegs. Klassischerweise handelt es sich bei einem Gradienten um einen Vektor. Man stelle sich ein skalares Feld mit einer ortsabhängigen Temperaturverteilung vor. Der Gradient zeigt dann in jedem Punkt des Feldes in die Richtung des höchsten lokalen Temperaturanstiegs. Im Falle von Policy Gradient wird ein Gradientenverfahren verwendet, um sich entlang von Steigungen bezüglich der Gütefunktion $J(\theta)$ einer Policy $\pi$ zu bewegen und so ein Maximum zu finden \cite{tds_policygradient} \cite{reinforcement_introduction_book}.
+
+$$  \nabla_{\theta} J(\theta)  =   \nabla_{\theta}  \int p(\tau|\theta) \: R(\tau) \; d\tau    $$
+
+Beziehungsweise:    $$  \nabla_{\theta} J(\theta)  =  \int \nabla_{\theta} p(\tau|\theta) \: R(\tau) \; d\tau    $$
+
+$J$ hängt damit indirekt von $\theta$ und direkt von den jeweiligen Trajectories ab. Durch Einsetzen der Wahrscheinlichkeiten erhält man:
+
+$$  \nabla_{\theta} J(\theta)  =  \int \nabla_{\theta} p(s_0) * \prod_{i=0}^N   p(s_{i+1}|s_i,a_i)  \:  \pi(a_i|s_i;\theta) \: R(\tau) \; d\tau    $$
+
+Es werden weitere mathematische Umformungen vorgenommen, um den Term zu reduzieren.
+
+$$  \nabla_{\theta} J(\theta)  =  \int  p(\tau|\theta) \: \nabla_{\theta}  \log p(\tau|\theta) \: R(\tau) \; d\tau    $$
+
+
+$$  \nabla_{\theta} J(\theta)  =  \int  p(\tau|\theta) \: \nabla_{\theta}  \log \left[ p(s_0) \prod_{i=0}^N  \pi(_i|s_i;\theta) \right]    \: R(\tau) \; d\tau   $$
+
+
+$$  \nabla_{\theta} J(\theta)  =  \int  p(\tau|\theta) \:  \sum_{i=0}^N   \nabla_{\theta}   \log \pi(a_i|s_i;\theta)  \: R(\tau) \; d\tau $$
+
+
+$$  \nabla_{\theta} J(\theta)  =   \mathbb{E}_{\pi}   \left[  \sum_{i=0}^N   \nabla_{\theta}   \log \pi(a_i|s_i;\theta)  \: R(\tau)  \right]   $$
+
+
+Bei dem Ergebnis handelt es sich um einen Erwartungswert über Trajectories für die Policy $\pi$. Aufgrund der möglicherweise enormen Anzahl der Trajectories kann diese Funktion nicht direkt berechnet, aber beispielsweise durch Monte Carlo Sampling approximiert werden.
+
+Aus der Policy Gradient-Funktion kann weiterhin die Updatefunktion für die Parameter $\theta$ abgeleitet werden. Die Änderung der Parameter entspricht der Lernrate $\alpha$ multipliziert mit dem Gradientenwert:
+
+$$  \Delta \theta   =   \alpha     \: * \:   \nabla_{\theta}   \log \pi(a_i|s_i;\theta)  \: R(\tau)   $$ 
+
+Diese Funktion bestimmt, wie die Parameter während des Gradientenaufstiegs angepasst werden. Die Güte der Policy $J$ wird dann durch die graduelle Anpassung der Wahrscheinlichkeiten der Aktionen für $\tau$ angepasst. Wenn $R$ ein hohes Ergebnis erzielt hat, so wird die Wahrscheinlichkeit für die ausgeführten Aktionen innerhalb von $\tau$ erhöht, andernfalls werden sie verringert.
+
+
+
+\paragraph{Loss Functions}\label{loss_functions}
+Statt der Nutzung von Value Functions oder Policy Gradient-Funktionen können sogenannte \Fachbegriff{Loss Functions} oder \Fachbegriff{Verlustfunktionen} angegeben werden. Konkret beschreibt eine Verlustfunktion den Unterschied zwischen tatsächlichen Parametern und den Parametern, die für eine getroffene Entscheidung des Modells vorhergesagt wurden. Dadurch kann bestimmt werden, wie groß der aus einem Zustandsübergang resultierende Fehler der vorhergesagten Parameter ist, bzw. wie sehr sich ein neuer Zustand von dem vorhergesagten Zustand unterscheidet.
+Allgemein wird dadurch beschrieben, wie gut die Anpassung einer Value Function bzw. die Anpassung der Parameter $\theta$ einer Policy gewesen ist. Bei gegebenen Parametern $ \theta $ gibt eine Loss Function also den Verlust an, der durch die Wahl der neuen Parameter $\theta_{t+1} $ entsteht.
+
+
+\paragraph{Vorteile und Nachteile}\label{vorteile_nachteile_gradient}
+
+Gegenüber anderen Verfahren bieten Gradienverfahren den Vorteil einer schnelleren Konvergenz. Wertebasierte Verfahren wie Q-Learning neigen zu einer höheren Oszillation, weil bereits kleine Änderungen der Einschätzung der Q-Werte drastische Veränderungen für das Verhalten und den Trajectory des Agenten zur Folge haben können. Policy Gradient stellt darüber hinaus sicher, dass jeder Schritt eine Verbesserung der Belohnung der Policy zur Folge hat. In jedem Fall wird dabei mindestens ein lokales, im besten Falle ein globales Maximum gefunden.
+
+Weiterhin wird die Effektivität in hochdimensionalen Aktionsräumen oder unter der Verwendung von \Fachbegriff{Continuous Actions} erhöht. Für Continuous Actions wird stets ein skalarer Wert geliefert, anstatt dass eine Entscheidung für diese Aktion getroffen werden muss. Bei Verfahren wie Q-Learning wird jeder möglichen Aktion zu jedem Zustand eine Art \Fachbegriff{Score}, nämlich der zu erwartende zukünftigte Reward, zugewiesen. Bei einer hohen Anzahl von Aktionen und Zuständen wird die Anzahl der Q-Werte zu hoch.
+
+Weiterhin kann in Gradientenverfahren eine stochastische Policy gelernt werden, was mit Value Functions nicht möglich ist. Weil eine stochastische Policy eine Wahrscheinlichkeitsverteilung über Aktionen definiert, kann der Agent den Zustandsraum zu erkunden, ohne stets die gleiche Aktion auszuführen, da die Aktionen stochastisch ausgewählt werden. Die Erkundung muss also nicht expliziert definiert werden wie in anderen Verfahren.
+
+Aufgrund dieser Vorteile sind Policy Gradient-Verfahren für große Fortschritte im Bereich des Reinforcement Learnings verantwortlich. Ein großer Nachteil besteht allerdings zum einen darin, dass häufig statt globalen Maxima nur lokale Maxima gefunden werden und zum anderen in der Schwierigkeit der Festlegung der Lernrate \cite{openai_ppo_blog}. Verschiedene Verfahren die auf Policy Gradient basieren versuchen, dieses Problem zu lösen.
+
+
+
+\subsubsection{Actor Critic}\label{actor_critic}
+Ein Beispielverfahren für \Fachbegriff{Policy Gradient} ist \Fachbegriff{Actor Critic} \cite{reinforcement_introduction_book} \cite{actor_critic_blog}. \Fachbegriff{Critic} repräsentiert die approximierte Value Function und berechnet die erwartete Belohnung für eine Aktion $a_t$ in einem bestimmten Zustand $s_t$. Der \Fachbegriff{Actor} ist die Policy, welche eine Aktion $a_t$ für einen gegebenen Zustand $s_t$ generiert und damit das Verhalten des Agenten bestimmt.
+
+Policy Gradient-Verfahren weisen ein großes Problem hinsichtlich der Bewertung der Güte von Trajectories auf. Der Reward $R$ für die gesamte Trajectory $\tau$ wird als Basis für die Bewertung verwendet. Wenn dieser Wert hoch ist, wird $\tau$ insgesamt als gut bewertet. Das bedeutet im Umkehrschluss allerdings nicht, dass alle Zustandsübergänge innerhalb von $\tau$ gut gewesen sein müssen - tatsächlich könnten einzelne sehr schlechte Aktionen getroffen worden sein.
+% grafik?   https://www.freecodecamp.org/news/an-intro-to-advantage-actor-critic-methods-lets-play-sonic-the-hedgehog-86d6240171d/
+
+Mit einer sehr hohen Anzahl von Samples kann diesem Problem entgegengewirkt werden, allerdings auf Kosten der Konvergenzdauer. Mit Actor Critic wird stattdessen ein neues Modell mit einer verbesserten Bewertung der Trajectories verwendet. Folgende aktualisierte Updatefunktion wird verwendet:
+
+Ursprüngliche Updatefunktion:
+$$  \Delta \theta   =   \alpha     \: * \:   \nabla_{\theta}   \log \pi(a_i|s_i;\theta)  \: R(\tau) $$
+Neue Updatefunktion:
+$$  \Delta \theta   =   \alpha     \: * \:   \nabla_{\theta}   \log \pi(a_i|s_i;\theta)  \: Q(s_t, a_t) $$
+
+Die Policy wird also nicht wie gewohnt zum Ende einer Episode bzw. mit jedem Trajectory $\tau$, sondern mit jedem Schritt aktualisiert, Actor Critic gehört also zum Temporal Difference Learning. In diesem Fall wird nicht mehr die Gesamtbelohnung $R(\tau)$ verwendet. Stattdessen wird ein Modell gefunden, das die Value Function approximiert.
+Actor Critic verwendet dafür zwei separate neurale Netze. Diese werden zu Beginn zufällig initialisiert. Der Actor führt dann eine Aktion aus, woraufhin der Critic beurteilt, wie gut die Aktion war. Er \sogenannt{kritisiert} also den Actor, woraufhin der Actor seine Policy anpasst. Anschließend passt auch der Critic seine Gewichtungen an, um zukünftig besseres Feedback geben zu können. Es ergeben sich ein Actor mit einer Policyfunktion ($\pi(s,a,\theta)$) und ein Critic mit Q-Werten ($q(s,a,w)$), die parallel arbeiten. Da nun zwei Netze verwendet werden, müssen auch zwei Optimisierungsverfahren mit unterschiedlichen Updatefunktionen parallel laufen.
+
+Actor Policy Update:
+$$  \Delta \theta   =   \alpha     \: * \:   \nabla_{\theta}   \log \pi(a_i|s_i;\theta)  \: q_w(s_t, a_t) $$
+Critic Value Function Update:
+$$ \Delta w  =  \beta  *  \left(     R(s_t,a_t)  + \gamma q_w (s_{t+1}, a_{t+1} - q_w(s_t,a_t)      \right)  \nabla_w  q_w (s_t,a_t)  $$
+
+Für den Critic wird hier eine zusätzliche Lernrate $\beta$ verwendet. Das Update hängt ab von dem Error zwischen dem erwarteten Q-Wert und dem tatsächlich erfahrenen Belohnungswert. Diesen inneren Teil der Gleichung (siehe Term innerhalb der großen Klammern) wird als \Fachbegriff{TD Error} bezeichnet. Das Ausmaß TD Error sowie die Lernrate bestimmen das Update Value Function mithilfe des Gradientenverfahrens.
+
+Zusammenfassend wird also bei jedem Zeitschritt $t$ der aktuelle State $s_t$ sowohl dem Actor als auch dem Critic übergeben. Die Policy generiert daraus eine Aktion $a_t$ mit einem Reward $R(s_t,a_t)$. Der Critic berechnet damit die aktualisierte Value Function für die generierte Aktion in diesem Zustand und der Actor nutzt diese dann, um seine Policy zu aktualisieren.
+
+\paragraph{A2C}
+Eine Verbesserung von Actor Critic ist \Fachbegriff{A2C}. Value Functions haben das Problem einer hohen Variabilität. Man kann sie schnell zum Oszillieren bringen, wie in Abschnitt \ref{vorteile_nachteile_gradient} beschrieben.
+Um diesem Problem entgegenzuwirken, wird für A2C die sogenannte \Fachbegriff{Advantage Function} $A(s_t,a_t)$ anstelle der Value Function verwendet. Diese Funktion gibt Angaben über die \textit{Verbesserung}, die bei der Wahl der jeweiligen Aktion erzielt werden kann, verglichen mit der durchschnittlichen Belohnung der Aktionen dieses Zustands. In anderen Worten gibt sie Auskunft darüber, wie viel besser die Aktion im Vergleich zu den anderen ist.
+
+
+$$ A(s_t,a_t)  =  Q(s_t,a_t) - V(s_t)  $$
+wobei V(s) die Vaue Function für den Zustand beschreibt und der durchschnittlichen erwarteten Belohnung für alle Aktionen in diesem Zustand entspricht.
+
+Wenn $A(s_t,a_t) > 0$, dann sollte der Gradient in diese Richtung bewegt werden. Wenn $A(s_t,a_t) < 0)$, so sollte der Gradient in die entgegengesetzte Richtung bewegt werden.
+
+Für die Berechnung werden nun jeweils sowohl Q-Werte als auch Value Functions benötigt. Bis jetzt haben wir mit dem Critic die Value Function approximiert, indem Q-Werte aktualisiert wurden. Man könnte nun ein weiteres neuronales Netz mit einzelnen Value Functions einführen, sodass sowohl Q-Values als auch Value Functions zur Verfügung stehen. Das wäre jedoch höchst ineffizient. Stattdessen kann die Beziehung von Q-Values und V-Values aus der Bellman-Gleichung verwendet werden, um $A(s_t,a_t)$ umzuschreiben:
+
+$$ A(s_t,a_t)  =  R(s_{t+1},a_{t+1})  + \gamma   V(s_{t+1} - V(s_t)  $$
+
+
+
+\subsubsection{Proximal Policy Optimization}\label{proximal_policy_optimization}
+\ac{ppo} ist ein Algorithmus aus dem Bereich der Policy Gradient-Verfahren, der auf Actor Critic bzw. A2C basiert. Alternative Verfahren aus dem Bereich sind dafür bekannt, sehr sensibel auf eine Änderung der Lernrate bzw. der \Fachbegriff{Step Size} zu reagieren, was zu einer deutlichen Verschlechterung des Ergebnisses führen kann. Der Hauptfokus des Verfahrens liegt daher in der Vermeidung von zu großen Policy-Updates \cite{ppo_paper} \cite{openai_ppo_blog} \cite{ppo_openai_doc} \cite{hui_ppo}. \ac{ppo} erzielt so gute Ergebnisse, dass die im Reinforcement Learning-Bereich erfolgreiche Firma OpenAI sich dazu entschiedenen hat, in allen Projekten ausschließlich den \ac{ppo}-Algorithmus zu nutzen \cite{openai_ppo_blog}. Dabei wird zwischen zwei Varianten von \ac{ppo} unterschieden: \Fachbegriff{PPO-Penalty} und \Fachbegriff{PPO-Clip}.
+
+PPO-Penalty verwendet sogenannte \Fachbegriff{Trust Regions} und weist daher große Ähnlichkeiten zu dem Verfahren \ac{trpo} \cite{trpo} auf. Das Vorgehen verbessert Policies, indem jeweils der größte mögliche Schritt zur Anpassung unternommen wird, während gleichzeitig bestimmte Einschränkungen für die Unterschiedlichkeit der alten und der neuen Policy eingehalten werden müssen. Für diese Einschränkung wird die \Fachbegriff{Kullback-Leibler-Divergenz} (KLD) verwendet \cite{kl_div_original} \cite{kl_div_book} - dabei handelt es sich um ein Maß für die Unterschiedlichkeit zweier Wahrscheinlichkeitsverteilungen. Der Begriff \Fachbegriff{Trust Region} beschreibt also das Aktualisieren der Policy in sinnvollen Abständen und Regionen. Bei \ac{trpo} wird die KLD als harte Beschränkung verwendet. PPO-Penalty bestraft hohe KLD-Werte direkt in der Updatefunktion als negativen Reward.
+
+PPO-Clip beinhaltet keine Beschränkungen wie die Kullback-Leibler-Divergenz der Policies. Stattdessen findet ein weniger aufwendigeres aber effektiveres Verfahren, genannt \Fachbegriff{Clipping}, statt. Folgende Updatefunktion wird definiert:
+
+$$  L^{CLIP}(\theta)  = \mathbb{E}_t     \left[ \mathmin \left(
+    r_t(\theta) A(s_t,a_t), \; clip(r_t(\theta), 1 - \epsilon, 1 + \epsilon) A(s_t,a_t)
+\right) \right]  $$
+
+Dabei wird die Variable $L$ anstelle von $\Delta \theta$ verwendet. Die Definition $L$ wird in der Fachliteratur verwendet und steht für \Fachbegriff{Local Approximation}, hat aber die selbe Bedeutung, nämlich die Aktualisierung der Policy.
+
+Beim Clipping wird die Veränderung der Policy direkt beschnitten. Der Term $ clip(r_t(\theta), 1 - \epsilon, 1 + \epsilon $ sorgt dafür, dass der Wert $r_t(\theta)$ stets im Wertenbereich zwischen den Grenzen $ 1 - \epsilon $ und $ 1 + \epsilon $ bleibt. Das Resultat wird mit dem Advantage-Wert multipliziert. Anschließend wird das Minimum aus dem geclippten Advantage-Wert und dem ungeclippten Advantage-Wert gebildet. Zusätzlich kann über den Hyperparamter $\epsilon$ bestimmt werden, wie sehr sich die neue Policy von der Alten unterscheiden darf.

@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: 95cc5049ba5454d418dfd10aaca1ecc5
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Cube.012
+    100002: Cylinder.005
+    100004: //RootNode
+    100006: Plane
+    100008: Cube
+    100010: Cube.000
+    100012: Cube.001
+    100014: Cube.002
+    100016: Cube.003
+    100018: Cube.004
+    100020: Cube.005
+    100022: Cube.006
+    100024: Cube.007
+    100026: Cube.008
+    100028: Cube.009
+    100030: Cube.010
+    100032: Cube.011
+    100034: Cube.013
+    100036: Cube.014
+    100038: Cube.015
+    100040: Cube.022
+    100042: Cube.025
+    100044: Cube.026
+    100046: Cube.231
+    100048: Cube.232
+    100050: Cylinder
+    100052: Cylinder.001
+    100054: Cylinder.002
+    100056: Floor_1
+    100058: Wall
+    400000: Cube.012
+    400002: Cylinder.005
+    400004: //RootNode
+    400006: Plane
+    400008: Cube
+    400010: Cube.000
+    400012: Cube.001
+    400014: Cube.002
+    400016: Cube.003
+    400018: Cube.004
+    400020: Cube.005
+    400022: Cube.006
+    400024: Cube.007
+    400026: Cube.008
+    400028: Cube.009
+    400030: Cube.010
+    400032: Cube.011
+    400034: Cube.013
+    400036: Cube.014
+    400038: Cube.015
+    400040: Cube.022
+    400042: Cube.025
+    400044: Cube.026
+    400046: Cube.231
+    400048: Cube.232
+    400050: Cylinder
+    400052: Cylinder.001
+    400054: Cylinder.002
+    400056: Floor_1
+    400058: Wall
+    2100000: Victorian_Light_Glass
+    2100002: Fantasy_Wood_Light_1
+    2100004: Fantasy_Wood_5
+    2100006: Fantasy_Wood_Blue
+    2300000: Cube.012
+    2300002: Cylinder.005
+    2300004: Plane
+    2300006: //RootNode
+    2300008: Cube
+    2300010: Cube.000
+    2300012: Cube.001
+    2300014: Cube.002
+    2300016: Cube.003
+    2300018: Cube.004
+    2300020: Cube.005
+    2300022: Cube.006
+    2300024: Cube.007
+    2300026: Cube.008
+    2300028: Cube.009
+    2300030: Cube.010
+    2300032: Cube.011
+    2300034: Cube.013
+    2300036: Cube.014
+    2300038: Cube.015
+    2300040: Cube.022
+    2300042: Cube.025
+    2300044: Cube.026
+    2300046: Cube.231
+    2300048: Cube.232
+    2300050: Cylinder
+    2300052: Cylinder.001
+    2300054: Cylinder.002
+    2300056: Floor_1
+    2300058: Wall
+    3300000: Cube.012
+    3300002: Cylinder.005
+    3300004: Plane
+    3300006: //RootNode
+    3300008: Cube
+    3300010: Cube.000
+    3300012: Cube.001
+    3300014: Cube.002
+    3300016: Cube.003
+    3300018: Cube.004
+    3300020: Cube.005
+    3300022: Cube.006
+    3300024: Cube.007
+    3300026: Cube.008
+    3300028: Cube.009
+    3300030: Cube.010
+    3300032: Cube.011
+    3300034: Cube.013
+    3300036: Cube.014
+    3300038: Cube.015
+    3300040: Cube.022
+    3300042: Cube.025
+    3300044: Cube.026
+    3300046: Cube.231
+    3300048: Cube.232
+    3300050: Cylinder
+    3300052: Cylinder.001
+    3300054: Cylinder.002
+    3300056: Floor_1
+    3300058: Wall
+    4300000: Plane
+    4300002: Cube.012
+    4300004: Cylinder.005
+    4300006: Cube.015
+    4300008: Cube.014
+    4300010: Cube.013
+    4300012: Cube.011
+    4300014: Cube.010
+    4300016: Cube.008
+    4300018: Cube.007
+    4300020: Cube.006
+    4300022: Cube.005
+    4300024: Cube.004
+    4300026: Cylinder.001
+    4300028: Cube.003
+    4300030: Cylinder
+    4300032: Cube
+    4300034: Cube.002
+    4300036: Cube.000
+    4300038: Cube.001
+    4300040: Cube.022
+    4300042: Cube.025
+    4300044: Cube.026
+    4300046: Floor_1
+    4300048: Wall
+    4300050: Cube.009
+    4300052: Cube.231
+    4300054: Cube.232
+    4300056: Cylinder.002
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Glass_1
+    second: {fileID: 2100000, guid: de99346be678043c0abc288cafdd0cd5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Iron
+    second: {fileID: 2100000, guid: f2c766dbd4d0243fb8c58277761f634f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Light_Glass
+    second: {fileID: 2100000, guid: 935a989f99c7e4f44be298bd60d43bef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Stone_1
+    second: {fileID: 2100000, guid: e155e2633ff9d4ccdb00afc03641aa36, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Stone_2
+    second: {fileID: 2100000, guid: 0ea23e45e95914af49498dbfd80c63e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Stone_3
+    second: {fileID: 2100000, guid: dbe603d88210f48a19042e83377f3bd0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Stone_4
+    second: {fileID: 2100000, guid: 8c55b17a36f944877bb5ea01e55f9ff2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Wood_1
+    second: {fileID: 2100000, guid: 7d69bcc8e68b84b8faef2789cdedd1fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Wood_2
+    second: {fileID: 2100000, guid: dbbcf81e590f2423e9e9a351a14b7ff4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Wood_3
+    second: {fileID: 2100000, guid: 80ce9840097e44e7098bce25a3398f0d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Wood_4
+    second: {fileID: 2100000, guid: ca124ccadf3ec4dcd9db8e32fc25dce9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Wood_5
+    second: {fileID: 2100000, guid: 8d9f288e1bdee4e66b444c2ff424d464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Wood_Blue
+    second: {fileID: 2100000, guid: e68413e9fba1446679e1d13553f7d141, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fantasy_Wood_Light_1
+    second: {fileID: 2100000, guid: f431913aa58f249c29619134373e615f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: b1806964a259d4f72b5a0d4cd31138e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White
+    second: {fileID: 2100000, guid: abf72065bcfb04e9586a3bdf3a157715, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

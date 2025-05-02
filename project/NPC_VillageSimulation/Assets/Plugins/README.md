@@ -1,0 +1,1 @@
+Place GOAP and ml-agents plugins in here, not versioned due to size limitations.

@@ -1,0 +1,126 @@
+\chapter{Fazit}\label{fazit}
+In diesem abschließenden Kapitel wird zunächst eine Zusammenfassung der weiteren Kapitel und der Ergebnisse der Arbeit vorgenommen. Darauf folgen eine Bewertung und eine Analyse von Problemen mit Machine Learning in Spielen sowie spezifischen Problemen des entwickelten Verfahrens. Ein Ausblick bildet anschließend den Abschluss der Arbeit.
+
+
+\section{Zusammenfassung}\label{zusammenfassung}
+Im ersten Kapitel wurde nach einer Einleitung in das Thema mit einer Vorstellung der Beweggründe für die Arbeit die allgemeine Idee der Thesis vorgestellt, die die Entwicklung einer Dorfsimulation beinhaltet, die auf Reinforcement Learning basiert.
+
+Mehrere Grundlagenkapiteln vermittelten anschließend nötiges Basiswissen. Zunächst wurde auf die Entwicklung intelligenter Agenten in Videospielen eingegangen. Es folgte ein Überblick über mögliche Technologien zur Implementierung intelligenter Agenten. Die vorgestellten Technologien wurden im Einzelnen erläutert.
+
+Anschließend folgte eine Einführung in das Reinforcement Learning mit einer umfassenden Vorstellung des Verfahrens und einer Rekapitulation der grundlegenden Vorgehensweise von Machine Learning. Auch mathematische Aspekte wurden beispielsweise durch die Erläuterung von Markov-Entscheidungsproblemen berücksichtigt. Verschiedene modellfreie und modellbasierte Algorithmen für die Implementierung von Reinforcement Learning wurden anschließend beschrieben. 
+
+Im nächsten Kapitel wurden einige Beispiele für die Nutzung von Machine Learning in Spielen vorgestellt. Diese Beispiele verdeutlichten das Potential von Machine Learning im Bereich der Videospiele. Es wurde gezeigt, dass in diesem Bereich bereits erfolgreiche Projekte existieren, die Machine Learning nutzen, und dass dadurch das Spielerlebnis verbessert werden kann.
+
+Im anschließenden Kapitel wurden durch die Vorstellung des verwendeten Frameworks Grundlagen für die Implementierung der Dorfsimulation geschaffen. Ein Beispielprojekt wurde implementiert, das die grundlegende Struktur und den Umgang mit dem Framework verdeutlicht.
+
+Anschließend wurde die Implementierung der Dorfsimulation vorgestellt. Zunächst wurden dafür Anforderungen aufgestellt. Danach folgte eine Beschreibung der nötigen Modellierung des Dorfes. Die grundlegende Architektur und das Software-Design der Anwendung wurde beschrieben. Schließlich wurde die Implementierung anhand der einzelnen Klassen und Komponenten der Simulation umfassend erläutert.
+
+Im nächsten Kapitel folgte die Beschreibung des Trainingsvorgangs für das in der Simulation genutzte Reinforcement Learning-Verfahren. Dabei wurde der generelle Ablauf des Trainings und die Auswahl der optimalen Hyperparameter ausführlich beschrieben. Verschiedene Metriken dokumentierten dabei das entstandene Verhalten der Agenten. Es wurde gezeigt, dass die Agenten sich sinnvoll verhalten.
+
+Schließlich wurden zwei weitere entwickelte Ansätze für die Nutzung intelligenter Agenten in der Dorfsimulation, die nicht auf Machine Learning basieren, vorgestellt. Ein Vergleich der drei Ansätze wurde angefertigt.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Bewertung}
+In der vorliegenden Arbeit sollte ein neuer Ansatz für die Erzeugung glaubwürdiger NPCs in Videospielen vorgestellt werden, die über menschliche Bedürfnisse verfügen und diese als Grundlage für einen intelligenten Entscheidungsprozess nutzen. Mithilfe von Reinforcement Learning sollten die Agenten lernen, ihre Bedürfnisse zu maximieren. Dadurch sollte ein authentisches Verhalten erreicht werden, dass die NPCs menschlicher wirken lässt.
+Dieser Ansatz wurde anhand einer Dorfsimulation umgesetzt, in der NPCs leben. Diese NPCs verfügen über Bedürfnisse und nutzen diese als Grundlage für ihre Entscheidungsfindung, die mit Reinforcement Learning implementiert wurde. Insgesamt ergibt sich dadurch ein lebendiges Dorf, das mit überzeugenden Agenten gefüllt ist. Die grundsätzlichen Ziele der Arbeit wurden damit erfüllt. 
+
+In der Einleitung der Thesis wurde von statischen NPCs gesprochen, die in stets gleiche Verhaltensmuster verfallen, wie beispielsweise in \Fachbegriff{The Witcher 3} oder \Fachbegriff{The Elder Scrolls V: Skyrim}. In \Fachbegriff{The Witcher 3} werden für die Befüllung der Welt Hintergrundcharaktere verwendet, die jedoch über keine Persönlichkeit verfügen, sondern je nach Bedarf erzeugt werden, um eine bestimmte Aktion wieder und wieder auszuführen. In \Fachbegriff{The Elder Scrolls V: Skyrim} werden keine namenlosen Hintergrundcharaktere verwendet, doch auch hier demonstrieren die Agenten häufig kein intelligentes Verhalten.
+Mit dem entwickelten, bedürfnisbasierten Ansatz ist eine Anwendung entstanden, die eine Mischung aus den beiden genannten Ansätzen für NPCs darstellt. Effektiv handelt es sich um Hintergrundcharaktere, die eine Umgebung mit Leben befüllen sollen. Ab dem Startzeitpunkt der Anwendung wird jedoch eine feste Anzahl von Agenten verwendet, die bis zum Beenden der Anwendung bestehen bleibt, sodass diese nicht nach Bedarf hinzugefügt und entfernt werden können. Alle NPCs verfügen über eine begrenzte eigene Persönlichkeiten, die durch Attribute beschrieben werden, und einen persistenten Wohnort.
+
+Im Unterschied zu den genannten Beispielen ergibt sich für die entwickelten Agenten jedoch ein weniger statisches Verhalten. Stattdessen treffen die Agenten kontinuierlich Entscheidungen, die nicht auf Scripting, sondern auf ihren aktuellen Bedürfnissen beruhen. Dadurch, dass NPCs unterschiedlichen Berufen nachgehen und ihre Freizeitaktivitäten auf Basis ihrer persönlichen Präferenzen wählen, wird ein dynamisches Verhalten erreicht. Da ihre Aktionen auf menschlichen Eigenschaften basieren und die Agenten eigenständig einen Tagesablauf entwickelt haben, wirken ihre gewählten Entscheidungen glaubwürdig. Insgesamt erweckt das Dorf einen belebten Eindruck und die Agenten wirken authentisch.
+Das dynamischere Verhalten der Agenten ist nicht nur auf Reinforcement Learning, sondern auch zu großen Teilen auf die Bedürfnisorientierung der Agenten zurückzuführen.
+Im Abschnitt \ref{vergleich_verhalten} wurde gezeigt, dass auch durch einen regelbasierten Ansatz ein Verhalten entstehen kann, das bis zu einem gewissen Grade ausreichend dynamisch ist, wenn bedürfnisorientierte Agenten verwendet werden. Aufgrund des initial niedrigeren Aufwands eines solches Verfahrens spricht diese Tatsache nicht für die Verwendung von Reinforcement Learning. Allerdings ergibt sich dadurch auch eine hohe Erweiterbarkeit der Anwendung, da der Entscheidungsprozess der Agenten durch das Modell übernommen wird und nicht explizit definiert werden muss, wodurch mehr Aufwand und Fehler entstehen können. Die hohe Erweiterbarkeit bietet nicht nur einen Vorteil gegenüber regelbasierten Ansätzen, sondern auch für weitere klassische Verfahren für die Entwicklung intelligenter Agenten, wie zum Beispiel Finite State Machines. Auch hier führt das Einführen neuer Aktionen und Bedürfnisse oder die Veränderung von bestehenden Komponenten zu einem höheren Entwicklungsaufwand und einer höheren Fehleranfälligkeit, da der Entwickler die eigentliche Entscheidungsfindung im Gegensatz zum Reinforcement Learning selbst implementieren muss.   
+Insgesamt wurde außerdem gezeigt, dass Reinforcement Learning eine Alternative für die Entscheidungsfindung von NPCs darstellt. Durch eine hohe Erweiterbarkeit bieten sich Vorteile gegenüber den in Kapitel \ref{intelligente_agenten} genannten klassischen Verfahren. Insgesamt kann außerdem ein dynamischeres, authentischeres Verhalten erreicht werden, das nicht auf fest definierten Regeln beruht. Dafür muss ein häufig zeitintensiver Trainingsvorgang in Kauf genommen werden, dessen Ergebnis vorher nicht bekannt ist und der für jede Änderung des Programmcodes erneut ausgeführt werden muss.
+
+
+
+
+
+
+
+
+
+
+\subsection{Probleme mit Machine Learning und Reinforcement Learning}
+Im folgenden Abschnitt wird auf generelle Probleme aufmerksam gemacht, die sich aus der Verwendung von Machine Learning für intelligente Agenten ergeben. Weiterhin werden Probleme beschrieben, die während der Arbeit angetroffen wurden.
+
+\subsection{Beschaffenheit des Aktionsraumes}\label{allgemeine_aktionen}
+Die Art und Weise, in der Reinforcement Learning im Kontext dieser Thesis verwendet wurde, unterscheidet sich teilweise von den klassischen Anwendungsformen der Technologie. In typischen Anwendungsszenarien gibt es einen Agenten in einer Umgebung, in der die Kombination von beliebigen, unterschiedlichen Aktionen zu einem Ziel führt, das der Agent erreichen muss. Es ist nicht garantiert, dass jede Aktion des Agenten eine Belohnung oder eine Bestrafung zur Folge hat. Der Agent lernt, in Abhängigkeit seiner Zustandsvariablen eine Strategie zu entwickeln, die zu einem ganz bestimmten Ziel führt. In der Dorfsimulation hingegen gibt es solche Ziele nicht. Während des Trainingsvorgangs wird dort die laufende Episode nach einer beliebigen Anzahl ausgeführter Aktionen unterbrochen, anstatt nach dem erfolgreichen Erreichen eines Ziels. Statt durch das Erreichen eines Ziels führt hier jede einzelne Aktion zu einer Belohnung oder einer Bestrafung aufgrund der Bedürfnisse des Agenten. Die Aktionen, die dem Agenten zur Verfügung gestellt werden, sind dabei durch ActionPlans genau vorgegeben und beinhalten bereits exakt beschriebene Abläufe. In der Regel werden jedoch viel allgemeinere Aktionen vorgegeben, wie beispielsweise in der in Kapitel \ref{ml_unity} vorgestellten Beispielimplementierung für die Lösung eines Problems durch das ML-Agents-Framework. Dort wurden lediglich die Aktionen \Fachbegriff{rechts/links bewegen} und \Fachbegriff{vorwärts/rückwärts bewegen} definiert, bis der Agent schlussendlich sein Ziel erreicht. Durch die Definition von allgemein gehaltenen Aktionen ermöglicht man es dem Agenten, eine eigene Strategie zu entwickeln. So entsteht die theoretische Möglichkeit, komplexe Muster, die vor dem Trainingsvorgang nicht bekannt waren, erlernen zu können. In einem Projekt der Firma OpenAI, in dem Agenten sich vor anderen Agenten verstecken müssen, wurde zum Beispiel gezeigt, dass mithilfe von simplen Aktionen wie \Fachbegriff{Schieben} und \Fachbegriff{Bewegen} äußerst komplexes Verhalten erreicht werden kann \cite{hide_and_seek_openai} \cite{hide_and_seek_openai_paper}. Ohne jegliche Instruktionen haben die sich versteckenden Agenten sogar gelernt, ihre Umgebung so zu manipulieren, dass sie sich selbst in einem Käfig von Objekten einsperren, damit sie von den suchenden Agenten nicht gefunden werden können. 
+Auch in der Dorfsimulation lernen die Agenten erfolgreich, eine Belohnungsfunktion zu maximieren. Durch die exakte Vorgabe und Beschreibung der möglichen Aktionen durch ActionPlans wird ihnen jedoch die Möglichkeit genommen, komplexere Verhaltensmuster zu entwickeln. Man entzieht den Agenten sozusagen ihre \Fachbegriff{Kreativität}, indem genaue Vorgaben gemacht werden. Ein wirklicher Lernvorgang im Bezug auf das intelligente Erlernen von Verhaltensmustern ist hier weniger gegeben. Stattdessen findet eher ein rein mathematischer Vorgang statt, indem Beziehungen zwischen Bedürfnissen und gesammelten Belohnungen gefunden werden.
+
+Für die Entwicklung der Entscheidungsfindung von Hintergrundcharakteren ist das gewählte Verfahren trotzdem angemessen. Wenn alle Teilaktionen der ActionPlans in einzelne Aktionen konvertiert oder generell ein Aktionsraum mit einem deutlich höheren Level von Abstraktion gewählt worden wäre, hätte das die Komplexität des Problems deutlich erhöht und damit das Training erschwert. Beispielsweise war für das Training des genannten Versteckspiels der Firma OpenAI ein 98,8 Stunden langer Trainingsvorgang mit 167,4 Millionen abgeschlossenen Episoden nötig, bis eine Konvergenz des Modells erreicht wurde \cite{hide_and_seek_openai_paper}. OpenAI Five wurde sogar über mehrere Monate hinweg unter großem Hardwareaufwand trainert, bis übermenschliches Verhalten erreicht werden konnte \cite{openai_five_paper}. Es muss daher ein Kompromiss aus der \Fachbegriff{Intelligenz} der Agenten, den Möglichkeiten des Entwicklers und den Anforderungen gefunden werden.
+
+
+
+
+\subsection{Dauer der Trainingsvorgänge}
+Wie im vorherigen Abschnitt erwähnt, ist ein großes Problem bei der Entwicklung von Agenten mittels Machine Learning die notwendige Zeit, die für das Training und die Feinabstimmung von Belohnungen und Hyperparametern aufgewendet werden muss. Entscheidungsbäume, State Machines oder weitere Verfahren (siehe Kapitel \ref{intelligente_agenten}) verlangen zwar unter Umständen mehr Zeit für die eigentliche Implementierung des Programmcodes, danach ist die Entwicklung der Agenten jedoch größtenteils abgeschlossen. Wenn Machine Learning-Verfahren wie Reinforcement Learning verwendet werden, muss auch nach der Anfertigung des Programmcodes noch Zeit und Rechenleistung investiert werden, um die Agenten effektiv zu trainieren. Hier muss also klar erörtert werden, was die eigentlichen Anforderungen an die Anwendung sind. Wenn keine hohen Voraussetzungen an die Intelligenz der Agenten gestellt werden, ist die Wahl einer State Machine mit hoher Wahrscheinlichkeit sinnvoller als die Nutzung von Reinforcement Learning. Wenn die Agenten jedoch den Eindruck erwecken sollen, sich an bestimmte Situationen anpassen zu können und generell kluge Entscheidungen treffen sollen, kann Machine Learning einen großen Vorteil darstellen. OpenAI hat mit der Entwicklung von \Fachbegriff{OpenAi Five} gezeigt, dass durch eine durchdachte Anwendung von Reinforcement Learning übermenschliche Leistungen erbracht und Agenten mit extrem intelligentem Verhalten entwickelt werden können \cite{openai_five} (siehe Abschnnitt \ref{aktuelle_entwicklungen_rl}). Um diese Erfolge möglich zu machen, waren jedoch ebenfalls eine große Menge von Hardware und Zeit erforderlich. Die Dauer des Trainings stellt also ein grundlegendes Problem dar.
+In der vorliegenden Arbeit bestand ebenfalls die Schwierigkeit, dass viele Trainingsvorgänge durchgeführt werden mussten. Dieses Verfahren beschreibt keine Notwendigkeit, sondern dient vielmehr zur Auffindung des optimalen Ergebnisses durch die Erzeugung einer Policy mit der höchsten Gesamtbelohnung und dem besten resultierenden Agentenverhalten. Ein weiterer legitimer Ansatz wäre es gewesen, das erste \Fachbegriff{brauchbare} Modell zu akzeptieren, das annehmbare Ergebnisse für das Verhalten der Agenten hervorbringt.
+
+Weiterhin bringt die Verwendung der GPU für Berechnungen im neuronalen Netz keine Vorteile. Der limitierende Faktor ist nicht das Netz selbst, sondern die in Unity laufende Simulation, die einen großen Overhead erzeugt. Durch die parallele Verwendung mehrerer Dörfer kann dieses Problem nur bis zu einem gewissen Grad reduziert werden.
+
+\subsection{Nichtdeterminismus als Hindernis}
+Aus der Nutzung von Machine Learning resultiert unweigerlich ein nichtdeterministisches Verhalten. Für die Entwicklung von NPCs stellt das ein Problem dar. Wenn für ein Spiel Agenten entwickelt werden, mit denen der Spieler interagieren kann, so agieren diese typischerweise deterministisch. In den meisten Spielen müssen bestimmten Regeln verfolgt werden, damit Game Designer und Entwickler das Verhalten der Agenten vorhersagen und auf bestimmte Situationen anpassen können. Die Agenten müssen leicht zu kontrollieren sein und über ein verlässliches und vorhersehbares Verhalten verfügen. Game Designer haben klare Vorstellungen für das Verhalten eines NPC. Wenn dieser nicht über genau das modellierte Verhalten verfügt, behindert das die Entwicklung des Spiels.
+Daher erscheint es nicht möglich, das gesamte Verhalten eines komplexen NPCs mit Verfahren wie Reinforcement Learning zu modellieren - es sei denn es handelt sich um Hintergrundcharaktere, wie in dieser Thesis. Diese dienen hauptsächlich zum Befüllen der Welt, sodass sie kein konkretes Verhalten an den Tag legen müssen. 
+
+Machine Learning-Verfahren stellen häufig eine \sogenannt{Black Box} dar. Der genaue Entscheidungsprozess des Verfahrens ist für den Entwickler daher nicht immer nachvollziehbar, sodass das resultierende Verhalten nicht genau vorhergesagt werden kann. Stattdessen müssen Nicht-Hintergrund-NPCs jedoch kontrollierbar und berechenbar sein. Wenn ein NPC zum Beispiel für das Storytelling eines Spiels relevant ist, dann muss er sich auch immer so verhalten, wie der Game Designer, der die Geschichte entwirft, es vorsieht. Statt des gesamten Verhaltens des NPCs könnte nur ein Teil davon durch Machine Learning geregelt werden. So könnte er etwa Entscheidungen aufgrund von Bedürfnissen treffen, sobald er sich in einem Idle-Modus befindet und aktuell nicht für andere Komponenten des Spiels benötigt wird.
+
+
+
+
+
+\subsection{Probleme mit ML-Agents}
+Während der Implementierung der Dorfsimulation kam es zu Problemen mit dem ML-Agents Framework, besonders während der Ausführung der Trainingsvorgänge. Ein bekanntes Problem bei der Nutzung des Frameworks unter Windows ist, dass das Training aus unbekannten Gründen anhält. Dieser Fehler kommt häufig vor, wenn das Training im Hintergrund ausgeführt wird, also wenn das entsprechende Fenster minimiert ist. Der Vorgang kann dann wieder gestartet werden, indem das Fenster geöffnet und eine beliebige Taste gedrückt wird.
+Da für das Training ohnehin viel Zeit investiert werden muss, stellt dieses Problem einen stark störenden Faktor dar.
+
+Ähnliche Probleme entstehen, wenn ein Trainingsvorgang mit einer exportierten Unity-Anwendung läuft und zeitgleich im Unity-Editor gearbeitet wird. Das Training stürzt dann manchmal vollständig ab, auch im Editor kommt es zu Fehlermeldungen. Da es sich bei dem Framework noch um eine Beta-Version handelt, sind Fehler allerdings zu erwarten.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Ausblick}\label{ausblick}
+In diesem Abschnitt werden weitere, zukünftige Möglichkeiten zur Verbesserung der entwickelten Agenten und zur Anwendung von Machine Learning in Spielen vorgeschlagen.
+
+Die entwickelte Dorfsimulation beinhaltet Agenten, die individuell handeln. Sie haben kein Gemeinschaftsgefühl, sondern kennen lediglich ihre eigenen Bedürfnisse. Interessant wäre die Entwicklung eines Gemeinschaftsgefühls, sodass die Agenten auf gemeinsame Ziele hinarbeiten.
+Für das Projekt OpenAI Five (siehe Abschnitt \ref{aktuelle_entwicklungen_rl}) wurde ein Hyperparameter \Fachbegriff{team spirit} eingeführt, sodass Agenten von den Belohnungsfunktionen anderer Agenten beeinflusst werden \cite{openai_five}. Die Erfolgsquote der Agenten konnte damit stark verbessert werden. Die Nutzung eines solchen Konzepts in einem Dorfsystem könnte dazu führen, dass Agenten für ein übergeordnetes Ziel zusammenarbeiten oder sich gegenseitig helfen.
+
+Wenn eine sinnvoller Ansatz für die Implementierung eines Ressourcensystems gefunden wird, könnten außerdem mehrere Dörfer parallel verwendet werden, die miteinander interagieren können. Interessant wären nun die möglichen Auswirkungen eines Gemeinschaftsgefühls, wie oben beschrieben. Dadurch könnte der Versuch der Agenten entstehen, den Erfolg des eigenen Dorfes zu steigern. Durch Interaktionen zwischen den Dörfern wie Handel oder Krieg könnten dann interessante Verhaltensweisen entstehen.
+
+Um die Entwicklung von komplexeren Verhaltensmustern anzuregen, könnten allgemeinere Aktionen für die Agenten definiert werden, wie in Abschnitt \ref{allgemeine_aktionen} vorgeschlagen. Das würde zwar die Komplexität des zugrunde liegenden Optimierungsproblems erhöhen, aber gleichzeitig die Möglichkeit bieten, ein intelligenteres Verhalten entstehen zu lassen. Interessant wäre es, dem Agenten auch die Navigation innerhalb des Dorfes zu überlassen, ähnlich wie im vorgestellten Beispiel in Kapitel \ref{ml_unity}. Bestimmte Aktionen würden dann erst verfügbar sein, wenn der Agent sich in der Nähe eines Gebäudes befindet. In diesem Fall müssten bestimmte Variablen in den Vektor von Observations mit aufgenommen werden, wie die Orte im Umkreis des Agenten und deren Positionen sowie der Position des Agenten.
+
+Vorstellbar wäre auch die Entwicklung eines Ökosystems, in dem sich neben Dorfbewohnern auch Tiere aufhalten, die primitive Bedürfnisse erfüllen müssen. Beispielsweise könnten Jäger aus dem Dorf diese Tiere jagen, wobei die Tiere versuchen zu überleben.
+
+Insgesamt könnte man äußere Einflüsse in Simulationen integrieren. Um ein absolut glaubhaftes Verhalten der Dorfbewohner zu erzeugen, müssen diese auf Aktionen des Spielers und auf Umstände aus der Umgebung reagieren. Diese sind nicht Teil der Arbeit, da es sich nicht um ein Spiel handelt, sondern um eine Simulation, in der die Bedürfnisse der Agenten im Vordergrund stehen. Zum Beispiel könnte es die Möglichkeit geben, dass sich Wetterbedingungen und Jahreszeiten verändern. Dies hätte etwa Auswirkungen auf die Ernte, sodass die NPCs lernen müssen, andere Nahrungsquellen zu finden oder im Sommer Vorräte anzuhäufen. Außerdem könnten die Agenten lernen, auf die Aktionen eines Spielers zu reagieren - zum Beispiel könnte dieser einen Diebstahl begehen oder einen Dorfbewohner angreifen. Hier könnte wieder das vorgeschlagene Gemeinschaftsgefühl genutzt werden. Eine weitere Möglichkeit besteht in der Implementierung von Moralvorstellungen, die abhängig von der Persönlichkeit eines Agenten sind.
+
+Um das Verhalten der Agenten besser beurteilen zu können, wäre die parallele Ausführung von Agenten mit unterschiedlichen Verfahren zur Entscheidungsfindung denkbar. In diesem Fall würden zum Beispiel GOAP-Agenten, \ac{reinforcement_learning}-Agenten und regelbasierte Agenten in demselben Dorf leben, um einen einfachen Vergleich erstellen zu können.
+
+Die meisten vorgeschlagenen Ideen gehen deutlich über die in dieser Arbeit entwickelten Möglichkeiten hinaus, bieten aber interessante Ansatzpunkte für weitere Forschungsarbeit. Dazu wäre voraussichtlich deutlich leistungsstärkere Hardware für den Trainingsvorgang nötig.
+
+In den vorherigen Abschnitten wurde bereits gezeigt, dass Machine Learning sich nicht für die vollständige Modellierung des Verhaltens bestimmter NPCs eignet. Dazu gehören alle NPCs, die für den Spielfortschritt relevant sind und sich deterministisch verhalten müssen. Für diese Agenten könnten höchstens Teile ihrer Entscheidungsfindung dadurch implementiert werden. Stattdessen könnten zukünftig Verfahren wie Reinforcement Learning für die Entwicklung von Hintergrundcharakteren entwickelt werden. Besonders in Verbindung mit der Modellierung von menschlichen Eigenschaften wie Bedürfnissen ist die Kombination der Verfahren in diesem Anwendungsbereich vielversprechend. Auch in kompetitiven Online-Spielen zeigt Reinforcement Learning für die Zukunft ein hohes Potential.
+

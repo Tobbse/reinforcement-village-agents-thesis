@@ -1,0 +1,168 @@
+% $Id: header.tex 1229 2009-10-23 13:58:42Z inf6254 $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass
+  [ %twoside            % beidseitiger Druck
+  , openright           % Kapitel beginnen auf einer rechten Seite
+  , listof=totoc        % Verzeichnisse im Inhaltsverzeichnis
+  , bibliography=totoc  % Literaturverzeichnis im Inhaltsverzeichnis
+  , parskip=half        % Absätze durch einen vergrößerten Zeilenabstand getrennt
+%  , draft              % Entwurfsversion
+  ]{scrreprt}           % Dokumentenklasse: KOMA-Script Buch
+
+\bibliographystyle{alpha}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{scrhack}
+
+ 
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage{ae}               % Fonts für pdfLaTeX, falls keine cm-super-Fonts installiert
+  \usepackage{microtype}        % optischer Randausgleich, falls pdflatex verwandt
+  \usepackage[pdftex]{graphicx} % Grafiken in pdfLaTeX
+\else
+  \usepackage[dvips]{graphicx}  % Grafiken und normales LaTeX
+\fi
+
+\usepackage[a4paper,
+            inner=2.0cm,outer=2.0cm,bindingoffset=0.5cm,
+            top=1.5cm,bottom=1.5cm,
+            footskip=1.0cm,includeheadfoot]{geometry}
+            
+\usepackage[utf8]{inputenc}         % Input encoding (allow direct use of special characters like "ä")
+%\usepackage[english]{babel}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[automark]{scrlayer-scrpage} % Schickerer Satzspiegel mit KOMA-Script
+\usepackage{setspace}           	    % Allow the modification of the space between lines
+\usepackage{booktabs}           	    % Netteres Tabellenlayout
+\usepackage{multicol}                   % Mehrspaltige Bereiche
+\usepackage{quotchap}                   % Beautiful chapter decoration
+\usepackage{acronym}                    % list of acronyms and abbreviations
+\usepackage{subfig}                     % allow sub figures
+\usepackage{tabularx}                   % Tabellen mit fester Breite
+\usepackage{lipsum}                     % für Blindtexte
+\usepackage{titlesec}                   % für eigene Überschriftenstile
+\usepackage{nameref}                    % Namen von refs bekommen (Kapitel etc.)
+\usepackage{todonotes}                  % ToDo-Kommentare und Auflistung
+\usepackage{float}                      % Bilder positionieren
+\usepackage{interval}                   % Intervalle
+\usepackage{amssymb}                    % Mathekrams, z.B. \mathbb für Mengen
+\usepackage{amsmath}                    % Noch mehr Mathekrams, für argmax etc.
+\usepackage[ruled,vlined]{algorithm2e}  % Pseudocode, Algorithmenbeschreibung
+\usepackage{listings}                   % Nice listings with frames etc.
+\usepackage{lstautogobble}              % Auto gobbling for listings.
+\usepackage{stackengine}                % Stacking of objects
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% User Commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\Name}[1]{\textsc{#1}}
+\newcommand*{\Befehl}[1]{\texttt{#1}}
+\newcommand*{\Fachbegriff}[1]{\emph{#1}}
+\newcommand*{\FachbegriffMitAbk}[2]{\emph{#1} (#2)}
+\newcommand*{\ErsterFachbegriffMitAbk}[3]{\emph{#1} (#2)\acused{#3}}
+\newcommand*{\sogenannt}[1]{\glqq{}#1\grqq{}}
+\newcommand*{\aufzaehlung}[1]{\glqq{}#1\grqq{}}
+\newcommand{\hiddensection}[1]{ \stepcounter{section} \section*{#1}}
+\newcommand*{\inlinecode}[1]{\texttt{#1}}
+\newcommand*{\filepath}[1]{\texttt{#1}}
+
+
+\DeclareMathOperator*{\mathmax}{max}
+\DeclareMathOperator*{\mathmin}{min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Layout
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lstset{ % For custom listings
+    numbers=left, 
+    numberstyle=\small, 
+    numbersep=15pt, 
+    frame = single, 
+    language=Java, 
+    framexleftmargin=25pt,
+    autogobble=true
+}
+
+\pagestyle{scrheadings}
+% \pagestyle{empty}
+\clubpenalty = 10000
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+\makeatletter
+\renewcommand{\fps@figure}{htbp}
+\makeatother
+
+
+%% Document properties %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\projname}{Reinforcement-Utility-Village}
+
+% Der Titel ist Banane, hier soll einfach irgendwas stehen
+\newcommand{\titel}{Anwendung von Reinforcement Learning zur Entwicklung authentischer Spielwelten mithilfe bedürfnisbasierter Agenten}
+\newcommand{\authorname}{Tobias Jansing}
+\newcommand{\thesisname}{Master Thesis}
+\newcommand{\untertitel}{Ein alternativer Ansatz zur Entwicklung von \textit{Non-Player-Characters} anhand einer Dorfsimulation mit Unity}
+\newcommand{\Datum}{26 Februar 2020}
+
+\ifpdf
+  \usepackage{hyperref}
+  \definecolor{darkblue}{rgb}{0,0,.5}
+  \hypersetup
+  	{ colorlinks=true
+  	, breaklinks=true
+    , linkcolor=darkblue
+    , menucolor=darkblue
+    , urlcolor=darkblue
+    , citecolor=darkblue
+    , pdftitle={\projname -- \untertitel}
+    , pdfsubject={\thesisname}
+    , pdfauthor={\authorname}
+    }
+\else
+\fi
+
+%% Listings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\KOMAoptions{listof=totoc} % necessary because of scrhack
+\renewcommand{\lstlistlistingname}{List of Listings}
+\lstset
+  { basicstyle=\small\ttfamily
+  , breaklines=true
+  , captionpos=b
+  , showstringspaces=false
+  , keywordstyle={}
+  }
+
+\lstnewenvironment{inlinehaskell}
+{\spacing{1}\lstset{language=haskell,nolol,aboveskip=\bigskipamount}}
+{\endspacing}
+
+\lstnewenvironment{inlinexml}
+{\spacing{1}\lstset{language=XML,nolol,aboveskip=\bigskipamount}}
+{\endspacing}
+
+\newcommand{\haskellinput}[2][]{
+  \begin{spacing}{1}
+  \lstinputlisting[language=Haskell,nolol,aboveskip=\bigskipamount,#1]{#2}
+  \end{spacing}
+}
+
+\newcommand{\haskellcode}[2][]{\mylisting[#1,language=Haskell]{#2}}
+
+\newcommand{\mylisting}[2][]{
+\begin{spacing}{1}
+\lstinputlisting[frame=lines,aboveskip=2\bigskipamount,#1]{#2}
+\end{spacing}
+}
